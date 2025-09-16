@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>กดรูปได้คะแนน + บันทึกอัตโนมัติ</title>
+<style>
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; }
+  #score { font-size: 2rem; margin-bottom: 20px; }
+  img { width: 250px; height: 250px; object-fit: cover; cursor: pointer; border-radius: 15px; transition: transform 0.2s; }
+  img:active { transform: scale(0.95); }
+</style>
+</head>
+<body>
+
+<div id="score">คะแนน: 0</div>
+
+<img id="myImage" src="https://limbuscompany.wiki.gg/images/Rosespanner_Workshop_Rep_Rodion_Acquisition.jpg?2e6253=&format=original" alt="กดฉัน">
+
+<audio id="clickSound" src="https://static.wikia.nocookie.net/limbuscompany/images/4/4c/LCB_Sinner_Don_Quixote_Stagger.wav/revision/latest?cb=20230603105543"></audio>
+
+<script>
+let score = 0;
+const scoreDisplay = document.getElementById('score');
+const img = document.getElementById('myImage');
+const sound = document.getElementById('clickSound');
+
+// โหลดคะแนนที่บันทึกไว้ ถ้ามี
+if(localStorage.getItem('score')){
+  score = parseInt(localStorage.getItem('score'));
+  scoreDisplay.textContent = 'คะแนน: ' + score;
+}
+
+// ฟังก์ชันกดรูป
+img.addEventListener('click', () => {
+  score++;
+  scoreDisplay.textContent = 'คะแนน: ' + score;
+
+  // บันทึกอัตโนมัติลง localStorage
+  localStorage.setItem('score', score);
+
+  sound.currentTime = 0;
+  sound.play();
+});
+</script>
+
+</body>
+</html>
